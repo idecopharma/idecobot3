@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDECO BOT 3 - Đăng nhập</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .login-form, .admin-panel {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 5px;
+            width: 200px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        #error-message, #admin-message {
+            color: red;
+            margin-top: 10px;
+        }
+        #popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            resize: both;
+            overflow: auto;
+            min-width: 300px;
+            min-height: 200px;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        #popup-header {
+            cursor: move;
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin: -20px -20px 10px -20px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+        #close-popup {
+            float: right;
+            cursor: pointer;
+        }
+        #popup-content {
+            max-height: calc(100% - 100px);
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        #popup-content h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        #popup-content p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        #home-button {
+            display: block;
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            text-align: center;
+        }
+        .admin-panel {
+            display: none;
+        }
+		.footer-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: red;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      z-index: 9998;
+    }
+    </style>
+</head>
+<body>
+    <div class="login-form">
+        <h2>Đăng nhập</h2>
+        <input type="text" id="username" placeholder="Tên đăng nhập">
+        <input type="password" id="password" placeholder="Mật khẩu">
+        <button onclick="login()">Đăng nhập</button>
+        <p id="error-message"></p>
+    </div>
+
+    <div class="admin-panel" id="adminPanel">
+        <h2>Trang Quản trị</h2>
+        <input type="password" id="newPassword" placeholder="Mật khẩu mới">
+        <button onclick="changePassword()">Đổi mật khẩu</button>
+        <p id="admin-message"></p>
+    </div>
+
+    <div id="popup">
+        <div id="popup-header">
+            Hướng dẫn sử dụng IDECO BOT 3
+            <span id="close-popup">&times;</span>
+        </div>
+        <div id="popup-content">
+            <h3>Giới thiệu</h3>
+            <p>IDECO BOT 3 Nó có thể giúp các em xử lý các công việc nhanh chóng, giúp tiết kiểm thời gian và tăng năng suất làm việc.</p>
+
+            <h3>Cách sử dụng</h3>
+            <p>1. <strong>Đặt câu hỏi:</strong> Bạn có thể đặt câu hỏi trực tiếp cho IDECO BOT 3. Hãy cố gắng đặt câu hỏi rõ ràng và cụ thể để nhận được câu trả lời chính xác nhất.</p>
+            <p>2. <strong>Yêu cầu phân tích:</strong> IDECO BOT 3 phân tích dữ liệu nếu em dán nội dung kế hoạch, số liệu, lập bảng hay đính kèm file.</p>
+            <p>3. <strong>Hướng dẫn công việc:</strong>IDECO BOT 3 có thể chỉ cách lập kế hoạch, báo cáo, lượt đồ gantt để phục vụ quản lý công việc.</p>
+<p>4.<strong>Thay mặt BGD:</strong>IDECO BOT3 cũng giống IDECO BOT 1 sẽ giải thích- giải đáp mọi câu hỏi liên quan đến tổ chức quản trị công ty chúng ta.</p>
+<p>5.<strong>Tra cứu:</strong>IDECO BOT 3 có thể tìm kiếm danh sách khách hàng- tra cứu mọi thông tin- ảnh- video youtube-download youtube- website- định vị-dữ liệu.</p>
+
+
+           <h3>Lưu ý quan trọng</h3>
+            <p>- IDECO BOT 3 là một công cụ hỗ trợ. Luôn kiểm tra và xác minh thông tin quan trọng.</p>
+            <p>- IDECO BOT 3  thuộc bản quyền của IDECO và dữ liệu LLM do IDECO  quản lý.</p>
+            <p>- Nếu bạn gặp vấn đề hoặc có câu hỏi về cách sử dụng, vui lòng liên hệ với Anh Triết.</p>
+
+            <h3>Cập nhật và phản hồi</h3>
+            <p>Chúng tôi liên tục cải thiện IDECO BOT 3. Nếu bạn có bất kỳ đề xuất nào để cải thiện bot, vui lòng gửi phản hồi của bạn cho chúng tôi.</p>
+        </div>
+        <a href="https://erp-ideco.skyit.vn/#/app/dashboard/main" id="home-button" target="_blank">Trang chủ</a>
+    </div>
+<div class="footer-banner">
+    Banner chân trang màu đỏ
+  </div>
+    <script>
+        // Kiểm tra xem đã có thông tin đăng nhập chưa, nếu chưa thì tạo mới
+        if (!localStorage.getItem('loginInfo')) {
+            localStorage.setItem('loginInfo', JSON.stringify({
+                username: 'idecopharma',
+                password: 'minhtriet@ideco',
+                adminUsername: 'minhtriet@@@1973',
+                adminPassword: 'admin'
+            }));
+        }
+
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var errorMessage = document.getElementById('error-message');
+            var loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+
+            if (username === loginInfo.username && password === loginInfo.password) {
+                errorMessage.textContent = '';
+                document.querySelector('.login-form').style.display = 'none';
+                loadScript();
+                showPopup();
+            } else if (username === loginInfo.adminUsername && password === loginInfo.adminPassword) {
+                errorMessage.textContent = '';
+                document.getElementById('adminPanel').style.display = 'block';
+                document.querySelector('.login-form').style.display = 'none';
+            } else {
+                errorMessage.textContent = 'Tên đăng nhập hoặc mật khẩu không đúng.';
+            }
+        }
+
+        function changePassword() {
+            var newPassword = document.getElementById('newPassword').value;
+            var adminMessage = document.getElementById('admin-message');
+            var loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+
+            if (newPassword) {
+                loginInfo.password = newPassword;
+                localStorage.setItem('loginInfo', JSON.stringify(loginInfo));
+                adminMessage.textContent = 'Mật khẩu đã được thay đổi thành công.';
+            } else {
+                adminMessage.textContent = 'Vui lòng nhập mật khẩu mới.';
+            }
+        }
+
+        function loadScript() {
+            var script = document.createElement('script');
+            script.src = 'https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.5/libs/oversea/index.js';
+            script.onload = function() {
+                var script2 = document.createElement('script');
+                script2.textContent = `
+                    new CozeWebSDK.WebChatClient({
+                        config: {
+                            bot_id: '7392881755516223505',
+                        },
+                        componentProps: {
+                            title: 'IDECO',
+                        },
+                    });
+                `;
+                document.body.appendChild(script2);
+            };
+            document.body.appendChild(script);
+        }
+
+        function showPopup() {
+            document.getElementById('popup').style.display = 'block';
+            
+            var popup = document.getElementById('popup');
+            var popupHeader = document.getElementById('popup-header');
+            var isDragging = false;
+            var dragStartX, dragStartY, initialX, initialY;
+
+            popupHeader.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                dragStartX = e.clientX;
+                dragStartY = e.clientY;
+                initialX = popup.offsetLeft;
+                initialY = popup.offsetTop;
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (isDragging) {
+                    var dx = e.clientX - dragStartX;
+                    var dy = e.clientY - dragStartY;
+                    popup.style.left = initialX + dx + 'px';
+                    popup.style.top = initialY + dy + 'px';
+                }
+            });
+
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
+            });
+
+            document.getElementById('close-popup').addEventListener('click', function() {
+                popup.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
